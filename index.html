@@ -97,73 +97,51 @@ body{
     display:flex;
     gap:30px;
     padding-left:50px;
-    transition:transform .8s ease;
+    /* NO transition here — controlled via JS */
 }
 
 .service-card{
-
     width:320px;
     min-width:320px;
-
     background:white;
-
     border-radius:28px;
-
     overflow:hidden;
-
     flex-shrink:0;
-
-    transition:.5s;
-
-    box-shadow:
-    0 8px 30px rgba(0,0,0,.08);
-
+    transition:box-shadow .5s, transform .5s;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 
 .service-card.active{
-
     transform:scale(1.08);
-
-    box-shadow:
-    0 15px 45px rgba(157,107,255,.35);
-
+    box-shadow:0 15px 45px rgba(157,107,255,.35);
 }
 
 .service-card img{
-
     width:100%;
     height:240px;
-
     object-fit:cover;
 }
 
 .card-content{
-
     padding:25px;
 }
 
 .card-content h3{
-
     font-size:28px;
     color:#333;
     margin-bottom:10px;
 }
 
 .card-content p{
-
     color:#777;
     line-height:1.7;
     min-height:55px;
 }
 
 .price{
-
     margin-top:20px;
-
     color:#9d6bff;
-
     font-size:30px;
-
     font-weight:bold;
 }
 
@@ -202,27 +180,18 @@ body{
 <body>
 
 <section class="hero">
-
 <img src="wonderslimmain.png" alt="Wonderslim">
-
 <div class="hero-content">
-
 <h1>Welcome To Wonderslim</h1>
-
 <p>Where Beauty Meets Confidence</p>
-
 </div>
-
 </section>
 
 <section class="services">
 
-<h2 class="section-title">
-Our Services
-</h2>
+<h2 class="section-title">Our Services</h2>
 
 <div class="slider-container">
-
 <div class="slider-track">
 
 <div class="service-card active">
@@ -289,52 +258,95 @@ Our Services
 </div>
 
 </div>
-
 </div>
 
 </section>
 
 <script>
 
-const track =
-document.querySelector('.slider-track');
+const track = document.querySelector('.slider-track');
+const originalCards = Array.from(document.querySelectorAll('.service-card'));
 
-const cards =
-document.querySelectorAll('.service-card');
+// 计算每张卡片的步进距离（宽度 + gap）
+function getStep(){
+    const isMobile = window.innerWidth <= 768;
+    return isMobile ? 260 + 20 : 320 + 30; // width + gap
+}
 
-let current = 0;
+const TOTAL = originalCards.length; // 7张原始卡
 
-function moveSlider(){
-
-cards.forEach(card=>{
-card.classList.remove('active');
+// 克隆一整轮卡片拼在后面，实现2轮无缝滑动
+originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.remove('active');
+    track.appendChild(clone);
 });
 
-current++;
+// 所有卡片（原始7 + 克隆7 = 14张）
+const allCards = Array.from(document.querySelectorAll('.service-card'));
 
-if(current >= cards.length){
+let current = 0; // 当前高亮index（0-based）
+let running = false;
 
-current = 0;
-
-track.style.transition='none';
-track.style.transform='translateX(0px)';
-
-setTimeout(()=>{
-track.style.transition='transform .8s ease';
-},50);
-
-}else{
-
-track.style.transform=
-`translateX(-${current*350}px)`;
-
+function setActive(index){
+    allCards.forEach(c => c.classList.remove('active'));
+    if(allCards[index]) allCards[index].classList.add('active');
 }
 
-cards[current].classList.add('active');
-
+function slideTo(index, animated){
+    const step = getStep();
+    track.style.transition = animated ? 'transform .8s ease' : 'none';
+    track.style.transform = `translateX(-${index * step}px)`;
 }
 
-setInterval(moveSlider,3000);
+function runSlider(){
+    if(running) return;
+    running = true;
+
+    let step = 0; // 已滑步数，从0开始，共需滑 TOTAL*2 - 1 步到达第14张位置
+
+    function next(){
+
+        step++;
+        current = step % (TOTAL * 2); // 在14张里循环index
+
+        slideTo(step, true);
+        setActive(current);
+
+        // 滑完第2轮（step == TOTAL*2 - 1，即滑到第14张）
+        if(step === TOTAL * 2 - 1){
+
+            // 等动画完成后，停留5秒，再静默reset回第0张
+            setTimeout(() => {
+
+                // 静默跳回起点
+                step = 0;
+                current = 0;
+                slideTo(0, false);
+                setActive(0);
+
+                // 停留5秒后再重新开始
+                setTimeout(() => {
+                    running = false;
+                    runSlider();
+                }, 5000);
+
+            }, 800); // 等 .8s 动画完成
+
+        } else {
+            // 正常每5秒滑一步（5000ms = 5s停留 + 800ms动画，这里间隔=停留时间）
+            setTimeout(next, 5000);
+        }
+    }
+
+    // 第一步延迟5秒后开始
+    setTimeout(next, 5000);
+}
+
+// 启动
+setActive(0);
+slideTo(0, false);
+runSlider();
 
 </script>
 
