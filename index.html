@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome To Wonderslim</title>
+<title>Wonderslim</title>
 
 <style>
 
@@ -11,377 +12,331 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    overflow-y:auto;
-}
-
-/* 背景固定 */
-.background-layer{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
-}
-
-.background-layer img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
-    display:block;
-}
-
-/* 黑色遮罩 */
-.overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.1);
-    z-index:0;
-}
-
-/* 内容 */
-.content{
-    position:relative;
-    z-index:1;
-    padding:40px;
-    color:white;
-}
-
-.content h1{
-    font-size:50px;
-    margin-bottom:20px;
-}
-
-.content p{
-    font-size:18px;
-    margin-bottom:20px;
-    line-height:1.8;
-}
-
-.btn{
-    padding:12px 25px;
-    border:none;
-    border-radius:8px;
-    background:white;
-    color:#333;
-    cursor:pointer;
-    font-size:16px;
-}
-
-.btn:hover{
-    opacity:0.9;
-}
-
-/* 手机版 */
-@media screen and (max-width:768px){
-
-    .content{
-        padding:20px;
-    }
-
-    .content h1{
-        font-size:32px;
-    }
-
-    .content p{
-        font-size:16px;
-    }
-
-}
-
-    .services-section{
-    display:flex;
-    min-height:100vh;
     background:#faf7ff;
+    overflow-x:hidden;
 }
 
-.service-menu{
-    width:280px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding-left:60px;
-    gap:30px;
-}
+/* HERO */
 
-.menu-item{
-    font-size:28px;
-    color:#999;
-    cursor:pointer;
-    transition:0.4s;
-}
-
-.menu-item.active{
-    color:#9d6bff;
-    font-size:48px;
-    font-weight:700;
-    transform:scale(1.1);
-}
-
-.service-display{
-    flex:1;
+.hero{
     position:relative;
+    width:100%;
+    height:100vh;
     overflow:hidden;
 }
 
-.service-slide{
-    position:absolute;
-    inset:0;
-    opacity:0;
-    transition:0.8s;
-    pointer-events:none;
-}
-
-.service-slide.active{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.service-slide img{
+.hero img{
     width:100%;
     height:100%;
     object-fit:cover;
 }
 
-.service-info{
+.hero::after{
+    content:'';
     position:absolute;
-    left:80px;
-    bottom:80px;
-    max-width:500px;
-    color:white;
+    inset:0;
+    background:linear-gradient(
+    rgba(0,0,0,.15),
+    rgba(0,0,0,.25)
+    );
 }
 
-.service-info h2{
-    font-size:60px;
+.hero-content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    color:white;
+    z-index:2;
+}
+
+.hero-content h1{
+    font-size:70px;
     margin-bottom:15px;
 }
 
-.service-info p{
-    font-size:20px;
-    line-height:1.8;
-    margin-bottom:25px;
+.hero-content p{
+    font-size:22px;
+    letter-spacing:2px;
+}
+
+/* SERVICES */
+
+.services{
+    padding:100px 0;
+    background:
+    linear-gradient(
+    180deg,
+    #faf7ff,
+    #f4eeff
+    );
+}
+
+.section-title{
+    text-align:center;
+    font-size:50px;
+    margin-bottom:60px;
+    color:#6f42c1;
+}
+
+.slider-container{
+    overflow:hidden;
+    width:100%;
+}
+
+.slider-track{
+    display:flex;
+    gap:30px;
+    padding-left:50px;
+    transition:transform .8s ease;
+}
+
+.service-card{
+
+    width:320px;
+    min-width:320px;
+
+    background:white;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    transition:.5s;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,.08);
+
+}
+
+.service-card.active{
+
+    transform:scale(1.08);
+
+    box-shadow:
+    0 15px 45px rgba(157,107,255,.35);
+
+}
+
+.service-card img{
+
+    width:100%;
+    height:240px;
+
+    object-fit:cover;
+}
+
+.card-content{
+
+    padding:25px;
+}
+
+.card-content h3{
+
+    font-size:28px;
+    color:#333;
+    margin-bottom:10px;
+}
+
+.card-content p{
+
+    color:#777;
+    line-height:1.7;
+    min-height:55px;
 }
 
 .price{
-    font-size:42px;
+
+    margin-top:20px;
+
+    color:#9d6bff;
+
+    font-size:30px;
+
     font-weight:bold;
 }
 
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero-content h1{
+    font-size:40px;
+}
+
+.hero-content p{
+    font-size:16px;
+}
+
+.section-title{
+    font-size:34px;
+}
+
+.service-card{
+    width:260px;
+    min-width:260px;
+}
+
+.slider-track{
+    gap:20px;
+    padding-left:20px;
+}
+
+}
 
 </style>
+
 </head>
 
 <body>
 
-<div class="background-layer">
-    <img src="./wonderslimmain.png" alt="Background">
-</div>
+<section class="hero">
 
-<div class="overlay"></div>
+<img src="wonderslimmain.png" alt="Wonderslim">
 
-<div class="content">
+<div class="hero-content">
 
-    <h1>Welcome To Wonderslim</h1>
+<h1>Welcome To Wonderslim</h1>
 
-    <p>Your Beauty & Wellness Journey Starts Here</p>
+<p>Where Beauty Meets Confidence</p>
 
 </div>
-
-    <section class="services-section">
-
-    <div class="service-menu">
-
-        <div class="menu-item active">
-            EMSHAPE
-        </div>
-
-        <div class="menu-item">
-            LIPO
-        </div>
-
-        <div class="menu-item">
-            SNOWPEARL
-        </div>
-
-        <div class="menu-item">
-            CARBON
-        </div>
-
-        <div class="menu-item">
-            PICO
-        </div>
-
-        <div class="menu-item">
-            HIFU
-        </div>
-
-        <div class="menu-item">
-            OPT
-        </div>
-
-    </div>
-
-    <div class="service-display">
-
-        <div class="service-slide active">
-
-            <img src="./emshape1.jpg">
-
-            <div class="service-info">
-                <h2>EMSHAPE</h2>
-                <p>
-                    Lift and tighten sagging skin while improving facial contours and definition.
-                </p>
-                <div class="price">
-                    RM99
-                </div>
-            </div>
-
-        </div>
-
-        <div class="service-slide">
-
-            <img src="./lipo1.jpg">
-
-            <div class="service-info">
-                <h2>LIPO</h2>
-                <p>
-                    Target stubborn fat areas and achieve a more sculpted body shape.
-                </p>
-                <div class="price">
-                    RM68
-                </div>
-            </div>
-
-        </div>
-
-        <div class="service-slide">
-
-            <img src="images/emshape.jpg">
-
-            <div class="service-info">
-                <h2>EMSHAPE</h2>
-                <p>
-                    Build muscle and tone your body with advanced body contouring technology.
-                </p>
-                <div class="price">
-                    RM99
-                </div>
-            </div>
-
-        </div>
-
-        <div class="service-slide">
-
-            <img src="images/snowpearl.jpg">
-
-            <div class="service-info">
-                <h2>SNOW PEARL</h2>
-                <p>
-                    Brighten dull skin and reveal a radiant full-body glow.
-                </p>
-                <div class="price">
-                    RM128
-                </div>
-            </div>
-
-        </div>
-
-        <div class="service-slide">
-
-            <img src="images/pico.jpg">
-
-            <div class="service-info">
-                <h2>PICO LASER</h2>
-                <p>
-                    Reduce pigmentation and improve overall skin clarity.
-                </p>
-                <div class="price">
-                    RM199
-                </div>
-            </div>
-
-        </div>
-
-        <div class="service-slide">
-
-            <img src="images/opt.jpg">
-
-            <div class="service-info">
-                <h2>OPT HAIR REMOVAL</h2>
-                <p>
-                    Long-lasting smooth skin with comfortable hair removal treatment.
-                </p>
-                <div class="price">
-                    FROM RM18
-                </div>
-            </div>
-
-        </div>
-
-    </div>
 
 </section>
 
-</body>
+<section class="services">
 
-    <script>
+<h2 class="section-title">
+Our Services
+</h2>
 
-const slides =
-document.querySelectorAll(".service-slide");
+<div class="slider-container">
 
-const menus =
-document.querySelectorAll(".menu-item");
+<div class="slider-track">
+
+<div class="service-card active">
+<img src="emshape1.jpg">
+<div class="card-content">
+<h3>EMSHAPE</h3>
+<p>Body sculpting and muscle toning treatment.</p>
+<div class="price">RM99</div>
+</div>
+</div>
+
+<div class="service-card">
+<img src="lipo1.jpg">
+<div class="card-content">
+<h3>LIPO</h3>
+<p>Target stubborn fat and contour your body.</p>
+<div class="price">RM68</div>
+</div>
+</div>
+
+<div class="service-card">
+<img src="snowpearl1.jpg">
+<div class="card-content">
+<h3>SNOW PEARL</h3>
+<p>Full body whitening and brightening treatment.</p>
+<div class="price">RM128</div>
+</div>
+</div>
+
+<div class="service-card">
+<img src="carbon1.jpg">
+<div class="card-content">
+<h3>CARBON LASER</h3>
+<p>Deep cleansing and skin rejuvenation.</p>
+<div class="price">RM38</div>
+</div>
+</div>
+
+<div class="service-card">
+<img src="pico1.jpg">
+<div class="card-content">
+<h3>PICO LASER</h3>
+<p>Improve pigmentation and acne marks.</p>
+<div class="price">RM199</div>
+</div>
+</div>
+
+<div class="service-card">
+<img src="hifu1.jpg">
+<div class="card-content">
+<h3>HIFU</h3>
+<p>Lift and tighten skin for a youthful look.</p>
+<div class="price">RM388</div>
+</div>
+</div>
+
+<div class="service-card">
+<img src="opt1.jpg">
+<div class="card-content">
+<h3>OPT</h3>
+<p>Smooth skin with long-lasting hair removal.</p>
+<div class="price">FROM RM18</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+const track =
+document.querySelector('.slider-track');
+
+const cards =
+document.querySelectorAll('.service-card');
 
 let current = 0;
 
-function showSlide(index){
+function moveSlider(){
 
-    slides.forEach(slide=>{
-        slide.classList.remove("active");
-    });
-
-    menus.forEach(menu=>{
-        menu.classList.remove("active");
-    });
-
-    slides[index].classList.add("active");
-    menus[index].classList.add("active");
-
-    current = index;
-}
-
-menus.forEach((menu,index)=>{
-
-    menu.addEventListener("click",()=>{
-
-        showSlide(index);
-
-    });
-
+cards.forEach(card=>{
+card.classList.remove('active');
 });
 
-setInterval(()=>{
+current++;
 
-    current++;
+if(current >= cards.length){
 
-    if(current >= slides.length){
+current = 0;
 
-        current = 0;
+track.style.transition='none';
+track.style.transform='translateX(0px)';
 
-    }
+setTimeout(()=>{
+track.style.transition='transform .8s ease';
+},50);
 
-    showSlide(current);
+}else{
 
-},3000);
+track.style.transform=
+`translateX(-${current*350}px)`;
+
+}
+
+cards[current].classList.add('active');
+
+}
+
+setInterval(moveSlider,3000);
 
 </script>
+
+</body>
 </html>
