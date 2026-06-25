@@ -97,6 +97,85 @@ body{
 
 }
 
+    .services-section{
+    display:flex;
+    min-height:100vh;
+    background:#faf7ff;
+}
+
+.service-menu{
+    width:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-left:60px;
+    gap:30px;
+}
+
+.menu-item{
+    font-size:28px;
+    color:#999;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.menu-item.active{
+    color:#9d6bff;
+    font-size:48px;
+    font-weight:700;
+    transform:scale(1.1);
+}
+
+.service-display{
+    flex:1;
+    position:relative;
+    overflow:hidden;
+}
+
+.service-slide{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:0.8s;
+    pointer-events:none;
+}
+
+.service-slide.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.service-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.service-info{
+    position:absolute;
+    left:80px;
+    bottom:80px;
+    max-width:500px;
+    color:white;
+}
+
+.service-info h2{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.service-info p{
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.price{
+    font-size:42px;
+    font-weight:bold;
+}
+
+
 </style>
 </head>
 
@@ -253,4 +332,56 @@ body{
 </section>
 
 </body>
+
+    <script>
+
+const slides =
+document.querySelectorAll(".service-slide");
+
+const menus =
+document.querySelectorAll(".menu-item");
+
+let current = 0;
+
+function showSlide(index){
+
+    slides.forEach(slide=>{
+        slide.classList.remove("active");
+    });
+
+    menus.forEach(menu=>{
+        menu.classList.remove("active");
+    });
+
+    slides[index].classList.add("active");
+    menus[index].classList.add("active");
+
+    current = index;
+}
+
+menus.forEach((menu,index)=>{
+
+    menu.addEventListener("click",()=>{
+
+        showSlide(index);
+
+    });
+
+});
+
+setInterval(()=>{
+
+    current++;
+
+    if(current >= slides.length){
+
+        current = 0;
+
+    }
+
+    showSlide(current);
+
+},3000);
+
+</script>
 </html>
