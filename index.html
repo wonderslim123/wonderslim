@@ -24,8 +24,6 @@ body{
     overflow-x:hidden;
 }
 
-/* HERO */
-
 .hero{
     position:relative;
     width:100%;
@@ -44,8 +42,8 @@ body{
     position:absolute;
     inset:0;
     background:linear-gradient(
-    rgba(0,0,0,.15),
-    rgba(0,0,0,.25)
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.25)
     );
 }
 
@@ -69,16 +67,9 @@ body{
     letter-spacing:2px;
 }
 
-/* SERVICES */
-
 .services{
     padding:100px 0;
-    background:
-    linear-gradient(
-    180deg,
-    #faf7ff,
-    #f4eeff
-    );
+    background:linear-gradient(180deg,#faf7ff,#f4eeff);
 }
 
 .section-title{
@@ -96,8 +87,6 @@ body{
 .slider-track{
     display:flex;
     gap:30px;
-    padding-left:50px;
-    /* NO transition here — controlled via JS */
 }
 
 .service-card{
@@ -107,8 +96,9 @@ body{
     border-radius:28px;
     overflow:hidden;
     flex-shrink:0;
-    transition:box-shadow .5s, transform .5s;
+    transition:transform .5s ease, box-shadow .5s ease;
     box-shadow:0 8px 30px rgba(0,0,0,.08);
+    transform:scale(1);
 }
 
 .service-card.active{
@@ -145,207 +135,190 @@ body{
     font-weight:bold;
 }
 
-/* MOBILE */
-
 @media(max-width:768px){
 
-.hero-content h1{
-    font-size:40px;
-}
+    .hero-content h1{ font-size:40px; }
+    .hero-content p{ font-size:16px; }
+    .section-title{ font-size:34px; }
 
-.hero-content p{
-    font-size:16px;
-}
+    .service-card{
+        width:260px;
+        min-width:260px;
+    }
 
-.section-title{
-    font-size:34px;
-}
-
-.service-card{
-    width:260px;
-    min-width:260px;
-}
-
-.slider-track{
-    gap:20px;
-    padding-left:20px;
-}
-
+    .slider-track{ gap:20px; }
 }
 
 </style>
-
 </head>
 
 <body>
 
 <section class="hero">
-<img src="wonderslimmain.png" alt="Wonderslim">
-<div class="hero-content">
-<h1>Welcome To Wonderslim</h1>
-<p>Where Beauty Meets Confidence</p>
-</div>
+    <img src="wonderslimmain.png" alt="Wonderslim">
+    <div class="hero-content">
+        <h1>Welcome To Wonderslim</h1>
+        <p>Where Beauty Meets Confidence</p>
+    </div>
 </section>
 
 <section class="services">
 
-<h2 class="section-title">Our Services</h2>
+    <h2 class="section-title">Our Services</h2>
 
-<div class="slider-container">
-<div class="slider-track">
+    <div class="slider-container" id="sliderContainer">
+        <div class="slider-track" id="sliderTrack">
 
-<div class="service-card active">
-<img src="emshape1.jpg">
-<div class="card-content">
-<h3>EMSHAPE</h3>
-<p>Body sculpting and muscle toning treatment.</p>
-<div class="price">RM99</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="emshape1.jpg">
+                <div class="card-content">
+                    <h3>EMSHAPE</h3>
+                    <p>Body sculpting and muscle toning treatment.</p>
+                    <div class="price">RM99</div>
+                </div>
+            </div>
 
-<div class="service-card">
-<img src="lipo1.jpg">
-<div class="card-content">
-<h3>LIPO</h3>
-<p>Target stubborn fat and contour your body.</p>
-<div class="price">RM68</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="lipo1.jpg">
+                <div class="card-content">
+                    <h3>LIPO</h3>
+                    <p>Target stubborn fat and contour your body.</p>
+                    <div class="price">RM68</div>
+                </div>
+            </div>
 
-<div class="service-card">
-<img src="snowpearl1.jpg">
-<div class="card-content">
-<h3>SNOW PEARL</h3>
-<p>Full body whitening and brightening treatment.</p>
-<div class="price">RM128</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="snowpearl1.jpg">
+                <div class="card-content">
+                    <h3>SNOW PEARL</h3>
+                    <p>Full body whitening and brightening treatment.</p>
+                    <div class="price">RM128</div>
+                </div>
+            </div>
 
-<div class="service-card">
-<img src="carbon1.jpg">
-<div class="card-content">
-<h3>CARBON LASER</h3>
-<p>Deep cleansing and skin rejuvenation.</p>
-<div class="price">RM38</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="carbon1.jpg">
+                <div class="card-content">
+                    <h3>CARBON LASER</h3>
+                    <p>Deep cleansing and skin rejuvenation.</p>
+                    <div class="price">RM38</div>
+                </div>
+            </div>
 
-<div class="service-card">
-<img src="pico1.jpg">
-<div class="card-content">
-<h3>PICO LASER</h3>
-<p>Improve pigmentation and acne marks.</p>
-<div class="price">RM199</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="pico1.jpg">
+                <div class="card-content">
+                    <h3>PICO LASER</h3>
+                    <p>Improve pigmentation and acne marks.</p>
+                    <div class="price">RM199</div>
+                </div>
+            </div>
 
-<div class="service-card">
-<img src="hifu1.jpg">
-<div class="card-content">
-<h3>HIFU</h3>
-<p>Lift and tighten skin for a youthful look.</p>
-<div class="price">RM388</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="hifu1.jpg">
+                <div class="card-content">
+                    <h3>HIFU</h3>
+                    <p>Lift and tighten skin for a youthful look.</p>
+                    <div class="price">RM388</div>
+                </div>
+            </div>
 
-<div class="service-card">
-<img src="opt1.jpg">
-<div class="card-content">
-<h3>OPT</h3>
-<p>Smooth skin with long-lasting hair removal.</p>
-<div class="price">FROM RM18</div>
-</div>
-</div>
+            <div class="service-card">
+                <img src="opt1.jpg">
+                <div class="card-content">
+                    <h3>OPT</h3>
+                    <p>Smooth skin with long-lasting hair removal.</p>
+                    <div class="price">FROM RM18</div>
+                </div>
+            </div>
 
-</div>
-</div>
+        </div>
+    </div>
 
 </section>
 
 <script>
 
-const track = document.querySelector('.slider-track');
-const originalCards = Array.from(document.querySelectorAll('.service-card'));
+const container = document.getElementById('sliderContainer');
+const track     = document.getElementById('sliderTrack');
 
-// 计算每张卡片的步进距离（宽度 + gap）
+const CARD_COUNT = 7;
+const PAUSE_MS   = 5000;  // 每张停留5秒
+const ANIM_MS    = 800;   // 滑动动画时长
+
+// ── 克隆两轮卡片（原始 + 克隆1 + 克隆2），保证2轮连续不断 ──
+const originals = Array.from(track.querySelectorAll('.service-card'));
+[...originals, ...originals].forEach(c => {
+    track.appendChild(c.cloneNode(true));
+});
+// 现在 track 里有 7 × 3 = 21 张
+
+const allCards = Array.from(track.querySelectorAll('.service-card'));
+
+// ── 计算卡片步进（含 gap）──
 function getStep(){
     const isMobile = window.innerWidth <= 768;
-    return isMobile ? 260 + 20 : 320 + 30; // width + gap
+    return isMobile ? 260 + 20 : 320 + 30;
 }
 
-const TOTAL = originalCards.length; // 7张原始卡
+// ── 算出让第 index 张卡片对准容器中心所需的 translateX ──
+function offsetForCenter(index){
+    const step        = getStep();
+    const containerW  = container.offsetWidth;
+    const cardW       = getStep() - (window.innerWidth <= 768 ? 20 : 30); // 纯卡宽
+    // 卡片左边距 = padding-left（无，因为我们自己算） + index * step
+    // 让卡片中心 == 容器中心
+    const cardCenter  = index * step + cardW / 2;
+    return cardCenter - containerW / 2;
+}
 
-// 克隆一整轮卡片拼在后面，实现2轮无缝滑动
-originalCards.forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.classList.remove('active');
-    track.appendChild(clone);
-});
-
-// 所有卡片（原始7 + 克隆7 = 14张）
-const allCards = Array.from(document.querySelectorAll('.service-card'));
-
-let current = 0; // 当前高亮index（0-based）
-let running = false;
-
-function setActive(index){
+// ── 高亮最靠近中心的那张 ──
+function updateActive(centeredIndex){
     allCards.forEach(c => c.classList.remove('active'));
-    if(allCards[index]) allCards[index].classList.add('active');
+    if(allCards[centeredIndex]) allCards[centeredIndex].classList.add('active');
 }
 
-function slideTo(index, animated){
-    const step = getStep();
-    track.style.transition = animated ? 'transform .8s ease' : 'none';
-    track.style.transform = `translateX(-${index * step}px)`;
-}
+// ── 初始化：第0张居中 ──
+let currentStep = 0;
+track.style.transition = 'none';
+track.style.transform  = `translateX(-${offsetForCenter(0)}px)`;
+updateActive(0);
 
+// ── 主滑动逻辑 ──
 function runSlider(){
-    if(running) return;
-    running = true;
 
-    let step = 0; // 已滑步数，从0开始，共需滑 TOTAL*2 - 1 步到达第14张位置
+    function slide(){
 
-    function next(){
+        currentStep++;
 
-        step++;
-        current = step % (TOTAL * 2); // 在14张里循环index
+        // 动画滑到下一张
+        track.style.transition = `transform ${ANIM_MS}ms ease`;
+        track.style.transform  = `translateX(-${offsetForCenter(currentStep)}px)`;
+        updateActive(currentStep);
 
-        slideTo(step, true);
-        setActive(current);
+        // 滑完第2轮（第14步 = index 13，即第2套的最后一张）
+        if(currentStep === CARD_COUNT * 2 - 1){
 
-        // 滑完第2轮（step == TOTAL*2 - 1，即滑到第14张）
-        if(step === TOTAL * 2 - 1){
-
-            // 等动画完成后，停留5秒，再静默reset回第0张
             setTimeout(() => {
+                // 无动画跳回第0张
+                track.style.transition = 'none';
+                track.style.transform  = `translateX(-${offsetForCenter(0)}px)`;
+                currentStep = 0;
+                updateActive(0);
 
-                // 静默跳回起点
-                step = 0;
-                current = 0;
-                slideTo(0, false);
-                setActive(0);
+                // 停留5秒后重新开始
+                setTimeout(runSlider, PAUSE_MS);
 
-                // 停留5秒后再重新开始
-                setTimeout(() => {
-                    running = false;
-                    runSlider();
-                }, 5000);
-
-            }, 800); // 等 .8s 动画完成
+            }, ANIM_MS);
 
         } else {
-            // 正常每5秒滑一步（5000ms = 5s停留 + 800ms动画，这里间隔=停留时间）
-            setTimeout(next, 5000);
+            setTimeout(slide, PAUSE_MS);
         }
     }
 
-    // 第一步延迟5秒后开始
-    setTimeout(next, 5000);
+    setTimeout(slide, PAUSE_MS);
 }
 
-// 启动
-setActive(0);
-slideTo(0, false);
 runSlider();
 
 </script>
