@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welsome to Wonder Slim</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8f5ff;
+    overflow:hidden;
+}
+
+.services-section{
+    width:100%;
+    height:100vh;
+    display:flex;
+}
+
+.service-menu{
+    width:280px;
+    padding-left:50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:28px;
+    background:#faf7ff;
+    z-index:10;
+}
+
+.menu-item{
+    color:#999;
+    font-size:28px;
+    cursor:pointer;
+    transition:.4s;
+}
+
+.menu-item.active{
+    color:#9b6dff;
+    font-size:48px;
+    font-weight:700;
+    transform:scale(1.08);
+}
+
+
+.service-display{
+    flex:1;
+    position:relative;
+    overflow:hidden;
+}
+
+.service-slide{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:1s;
+    pointer-events:none;
+}
+
+.service-slide.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* 图片 */
+
+.service-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* 紫色遮罩 */
+
+.service-slide::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(
+    to right,
+    rgba(130,80,255,.55),
+    rgba(130,80,255,.15),
+    rgba(255,255,255,0)
+    );
+}
+
+/* 内容 */
+
+.service-info{
+    position:absolute;
+    left:80px;
+    bottom:90px;
+    max-width:550px;
+    color:white;
+    z-index:2;
+}
+
+.service-info h2{
+    font-size:70px;
+    margin-bottom:15px;
+    letter-spacing:2px;
+}
+
+.service-info p{
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.price{
+    font-size:48px;
+    font-weight:700;
+}
+
+</style>
+</head>
+<body>
+
+<section class="services-section">
+
+    <div class="service-menu">
+
+        <div class="menu-item active">HIFU</div>
+
+        <div class="menu-item">LIPO</div>
+
+        <div class="menu-item">EMSHAPE</div>
+
+        <div class="menu-item">SNOW PEARL</div>
+
+        <div class="menu-item">PICO</div>
+
+        <div class="menu-item">OPT</div>
+
+    </div>
+
+    <div class="service-display">
+
+        <div class="service-slide active">
+
+            <img src="images/hifu.jpg">
+
+            <div class="service-info">
+                <h2>HIFU</h2>
+
+                <p>
+                    Lift and tighten skin while improving facial contour
+                    and reducing visible signs of aging.
+                </p>
+
+                <div class="price">
+                    RM388
+                </div>
+            </div>
+
+        </div>
+
+        <div class="service-slide">
+
+            <img src="images/lipo.jpg">
+
+            <div class="service-info">
+                <h2>LIPO</h2>
+
+                <p>
+                    Reduce stubborn fat and achieve a slimmer,
+                    more sculpted body shape.
+                </p>
+
+                <div class="price">
+                    RM68
+                </div>
+            </div>
+
+        </div>
+
+        <div class="service-slide">
+
+            <img src="images/emshape.jpg">
+
+            <div class="service-info">
+                <h2>EMSHAPE</h2>
+
+                <p>
+                    Build muscle definition and contour
+                    your body with advanced technology.
+                </p>
+
+                <div class="price">
+                    RM99
+                </div>
+            </div>
+
+        </div>
+
+        <div class="service-slide">
+
+            <img src="images/snowpearl.jpg">
+
+            <div class="service-info">
+                <h2>SNOW PEARL</h2>
+
+                <p>
+                    Full body whitening treatment
+                    for brighter and more radiant skin.
+                </p>
+
+                <div class="price">
+                    RM128
+                </div>
+            </div>
+
+        </div>
+
+        <div class="service-slide">
+
+            <img src="images/pico.jpg">
+
+            <div class="service-info">
+                <h2>PICO LASER</h2>
+
+                <p>
+                    Improve pigmentation, acne marks
+                    and overall skin clarity.
+                </p>
+
+                <div class="price">
+                    RM199
+                </div>
+            </div>
+
+        </div>
+
+        <div class="service-slide">
+
+            <img src="images/opt.jpg">
+
+            <div class="service-info">
+                <h2>OPT</h2>
+
+                <p>
+                    Comfortable hair removal treatment
+                    for long-lasting smooth skin.
+                </p>
+
+                <div class="price">
+                    FROM RM18
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+const slides =
+document.querySelectorAll(".service-slide");
+
+const menus =
+document.querySelectorAll(".menu-item");
+
+let current = 0;
+
+function showSlide(index){
+
+    slides.forEach(slide=>{
+        slide.classList.remove("active");
+    });
+
+    menus.forEach(menu=>{
+        menu.classList.remove("active");
+    });
+
+    slides[index].classList.add("active");
+    menus[index].classList.add("active");
+
+    current = index;
+}
+
+menus.forEach((menu,index)=>{
+
+    menu.addEventListener("click",()=>{
+
+        showSlide(index);
+
+    });
+
+});
+
+setInterval(()=>{
+
+    current++;
+
+    if(current >= slides.length){
+        current = 0;
+    }
+
+    showSlide(current);
+
+},3000);
+
+</script>
+
+</body>
+</html>
