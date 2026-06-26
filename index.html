@@ -57,13 +57,9 @@ body{
 }
 
 .learn-btn{
-    position:absolute;
-    bottom:80px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:3;
     display:inline-block;
-    padding:1px 35px;
+    margin-top:40px;
+    padding:15px 35px;
     border:2px solid white;
     border-radius:50px;
     color:white;
@@ -77,13 +73,13 @@ body{
 .learn-btn:hover{
     background:white;
     color:#9d6bff;
-    transform:translateX(-50%) translateY(-3px);
+    transform:translateY(-3px);
     animation:none;
 }
 
 @keyframes bounce{
-    0%, 100%{ transform:translateX(-50%) translateY(0); }
-    50%     { transform:translateX(-50%) translateY(-10px); }
+    0%, 100%{ transform:translateY(0); }
+    50%     { transform:translateY(-10px); }
 }
 
 /* SERVICES */
@@ -170,8 +166,8 @@ body{
     <div class="hero-content">
         <h1>Welcome To Wonderslim</h1>
         <p>Where Beauty Meets Confidence</p>
+        <a href="#services" class="learn-btn">EXPLORE OUR TREATMENTS</a>
     </div>
-    <a href="#services" class="learn-btn">EXPLORE OUR TREATMENTS</a>
 </section>
 
 <section class="services" id="services">
