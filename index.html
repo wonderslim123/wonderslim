@@ -130,7 +130,26 @@ body{
     .service-card{ width:260px; min-width:260px; }
     .slider-track{ gap:20px; }
 }
+.learn-btn{
+    display:inline-block;
+    margin-top:40px;
+    padding:15px 35px;
+    border:2px solid white;
+    border-radius:50px;
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    letter-spacing:2px;
+    transition:.4s;
+    backdrop-filter:blur(10px);
+}
 
+.learn-btn:hover{
+    background:white;
+    color:#9d6bff;
+    transform:translateY(-3px);
+}
+    
 </style>
 </head>
 <body>
@@ -141,9 +160,13 @@ body{
         <h1>Welcome To Wonderslim</h1>
         <p>Where Beauty Meets Confidence</p>
     </div>
+
+    <a href="#services" class="learn-btn">
+        EXPLORE OUR TREATMENTS
+    </a>
 </section>
 
-<section class="services">
+<section class="services" id="services">
     <h2 class="section-title">Our Services</h2>
 
     <div class="slider-container" id="sliderContainer">
