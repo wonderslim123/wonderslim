@@ -56,6 +56,29 @@ body{
     letter-spacing:2px;
 }
 
+.learn-btn{
+    position:absolute;
+    bottom:60px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:3;
+    display:inline-block;
+    padding:15px 35px;
+    border:2px solid white;
+    border-radius:50px;
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    letter-spacing:2px;
+    transition:.4s;
+    backdrop-filter:blur(10px);
+}
+.learn-btn:hover{
+    background:white;
+    color:#9d6bff;
+    transform:translateX(-50%) translateY(-3px);
+}
+
 /* SERVICES */
 .services{
     padding:100px 0;
@@ -93,7 +116,7 @@ body{
     flex-shrink:0;
     transition:transform .4s ease, box-shadow .4s ease;
     box-shadow:0 8px 30px rgba(0,0,0,.08);
-    pointer-events:none; /* prevent drag ghost */
+    pointer-events:none;
 }
 .service-card.active{
     transform:scale(1.08);
@@ -130,26 +153,7 @@ body{
     .service-card{ width:260px; min-width:260px; }
     .slider-track{ gap:20px; }
 }
-.learn-btn{
-    display:inline-block;
-    margin-top:40px;
-    padding:15px 35px;
-    border:2px solid white;
-    border-radius:50px;
-    color:white;
-    text-decoration:none;
-    font-size:15px;
-    letter-spacing:2px;
-    transition:.4s;
-    backdrop-filter:blur(10px);
-}
 
-.learn-btn:hover{
-    background:white;
-    color:#9d6bff;
-    transform:translateY(-3px);
-}
-    
 </style>
 </head>
 <body>
@@ -160,10 +164,7 @@ body{
         <h1>Welcome To Wonderslim</h1>
         <p>Where Beauty Meets Confidence</p>
     </div>
-
-    <a href="#services" class="learn-btn">
-        EXPLORE OUR TREATMENTS
-    </a>
+    <a href="#services" class="learn-btn">EXPLORE OUR TREATMENTS</a>
 </section>
 
 <section class="services" id="services">
@@ -248,7 +249,6 @@ const track     = document.getElementById('sliderTrack');
 const PAUSE_MS = 5000;
 const ANIM_MS  = 700;
 
-// ── Helper: card width + gap ──
 function cardStep(){
     return window.innerWidth <= 768 ? 260 + 20 : 320 + 30;
 }
@@ -256,66 +256,51 @@ function cardW(){
     return window.innerWidth <= 768 ? 260 : 320;
 }
 
-// ── Clone cards before & after for infinite feel ──
-// Structure: [clone-set][original-set][clone-set]
-// We clone ONCE before and ONCE after so user can scroll either way.
 const originals = Array.from(track.querySelectorAll('.service-card'));
-const N = originals.length; // 7
+const N = originals.length;
 
-// Prepend clones (reversed order prepended one by one)
 originals.slice().reverse().forEach(c => {
     const cl = c.cloneNode(true);
     track.prepend(cl);
 });
-// Append clones
 originals.forEach(c => {
     track.appendChild(c.cloneNode(true));
 });
 
-// Now track has 3*N cards. The "real" set starts at index N.
-// All cards
 function getAllCards(){
     return Array.from(track.querySelectorAll('.service-card'));
 }
 
-// ── Translate track so card at `index` is centered ──
-// translateX = -(index * step) + (containerW/2 - cardW/2)
 function calcOffset(index){
-    const step   = cardStep();
-    const cw     = cardW();
-    const contW  = container.offsetWidth;
+    const step  = cardStep();
+    const cw    = cardW();
+    const contW = container.offsetWidth;
     return -(index * step) + (contW / 2 - cw / 2);
 }
 
-// currentIndex tracks which card is centered (within the full 3*N array)
-let currentIndex = N; // start at first real card (index N)
+let currentIndex = N;
 
-// ── Apply position, optionally animated ──
 function applyTranslate(x, animated){
     track.style.transition = animated ? `transform ${ANIM_MS}ms ease` : 'none';
     track.style.transform  = `translateX(${x}px)`;
 }
 
-// ── Highlight the centered card ──
 function updateActive(index){
     getAllCards().forEach(c => c.classList.remove('active'));
     const cards = getAllCards();
     if(cards[index]) cards[index].classList.add('active');
 }
 
-// ── Snap to nearest card ──
 function snapToIndex(index, animated){
     currentIndex = index;
     applyTranslate(calcOffset(index), animated);
     updateActive(index);
 }
 
-// ── After animation, silently fix index if we drifted into clones ──
 function normalizeIfNeeded(){
-    const total = N * 3;
     if(currentIndex < N){
         const diff = N - currentIndex;
-        currentIndex = N * 2 - diff; // mirror into middle set
+        currentIndex = N * 2 - diff;
         applyTranslate(calcOffset(currentIndex), false);
         updateActive(currentIndex);
     } else if(currentIndex >= N * 2){
@@ -326,10 +311,8 @@ function normalizeIfNeeded(){
     }
 }
 
-// ── Init: first card centered, no animation ──
 snapToIndex(N, false);
 
-// ── Auto-play ──
 let autoTimer = null;
 let isUserDragging = false;
 
@@ -355,7 +338,6 @@ function stopAuto(){
 
 startAuto();
 
-// ── Drag / Touch ──
 let dragStartX   = 0;
 let dragCurrentX = 0;
 let baseOffset   = 0;
@@ -376,14 +358,11 @@ function dragMove(x){
     const delta  = x - dragStartX;
     track.style.transform = `translateX(${baseOffset + delta}px)`;
 
-    // Live-update which card is centered
-    const step   = cardStep();
-    const contW  = container.offsetWidth;
-    const cw     = cardW();
-    // Invert: offset = -(index*step) + (contW/2 - cw/2)
-    // index = -(offset - (contW/2 - cw/2)) / step
+    const step          = cardStep();
+    const contW         = container.offsetWidth;
+    const cw            = cardW();
     const currentOffset = baseOffset + delta;
-    const approxIndex = Math.round(-( currentOffset - (contW/2 - cw/2) ) / step);
+    const approxIndex   = Math.round(-( currentOffset - (contW/2 - cw/2) ) / step);
     updateActive(Math.max(0, Math.min(N*3-1, approxIndex)));
 }
 
@@ -404,17 +383,14 @@ function dragEnd(){
     }, ANIM_MS);
 }
 
-// Mouse
 container.addEventListener('mousedown', e => { dragStart(e.clientX); });
 window.addEventListener('mousemove',    e => { dragMove(e.clientX); });
 window.addEventListener('mouseup',      ()  => { dragEnd(); });
 
-// Touch
 container.addEventListener('touchstart', e => { dragStart(e.touches[0].clientX); }, {passive:true});
 container.addEventListener('touchmove',  e => { dragMove(e.touches[0].clientX); },  {passive:true});
 container.addEventListener('touchend',   ()  => { dragEnd(); });
 
-// Resize: recalculate without animation
 window.addEventListener('resize', () => {
     applyTranslate(calcOffset(currentIndex), false);
 });
