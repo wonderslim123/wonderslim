@@ -154,12 +154,41 @@ body{
     overflow:hidden;
 }
 
+/* MOBILE: vertical stacked list instead of horizontal slider */
 @media(max-width:768px){
     .hero-content h1{ font-size:40px; }
     .hero-content p{ font-size:16px; }
     .section-title{ font-size:34px; }
-    .service-card{ width:260px; min-width:260px; }
-    .slider-track{ gap:20px; }
+
+    .slider-container{
+        overflow:visible;
+        cursor:default;
+        padding:0 20px;
+    }
+    .slider-container:active{
+        cursor:default;
+    }
+    .slider-track{
+        flex-direction:column;
+        gap:20px;
+        transform:none !important;
+        transition:none !important;
+    }
+    .service-card{
+        width:100%;
+        min-width:100%;
+        pointer-events:auto;
+    }
+    .service-card.active{
+        transform:none;
+        box-shadow:0 8px 30px rgba(0,0,0,.08);
+    }
+    .service-card img{
+        pointer-events:auto;
+    }
+    .card-content p{
+        height:auto;
+    }
 
     .learn-btn{
         border-color:#9d6bff;
@@ -259,17 +288,26 @@ body{
 <script>
 (function(){
 
+function isMobile(){
+    return window.innerWidth <= 768;
+}
+
 const container = document.getElementById('sliderContainer');
 const track     = document.getElementById('sliderTrack');
+
+// MOBILE: leave the cards as a plain vertical list, no cloning / auto-slide / drag.
+if(isMobile()){
+    return;
+}
 
 const PAUSE_MS = 5000;
 const ANIM_MS  = 700;
 
 function cardStep(){
-    return window.innerWidth <= 768 ? 260 + 20 : 320 + 30;
+    return 320 + 30;
 }
 function cardW(){
-    return window.innerWidth <= 768 ? 260 : 320;
+    return 320;
 }
 
 const originals = Array.from(track.querySelectorAll('.service-card'));
@@ -408,6 +446,7 @@ container.addEventListener('touchmove',  e => { dragMove(e.touches[0].clientX); 
 container.addEventListener('touchend',   ()  => { dragEnd(); });
 
 window.addEventListener('resize', () => {
+    if(isMobile()) return;
     applyTranslate(calcOffset(currentIndex), false);
 });
 
